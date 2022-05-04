@@ -1,6 +1,5 @@
-package com.thecout.lox;
-
 public class Token {
+
     public final TokenType type;
     public final String lexeme;
     public final Object literal;
@@ -14,6 +13,23 @@ public class Token {
     }
 
     public String toString() {
-        return type + " " + lexeme + " " + literal;
+        return "Type: " + type + " Lexeme: \"" + lexeme + "\" Literal: \"" + literal + "\"";
+    }
+
+    //Create Getters
+    public TokenType getType() {
+        return type;
+    }
+
+    public String getLexeme() {
+        return lexeme;
+    }
+
+    public Object getLiteral() {
+        return literal;
+    }
+
+    public int getLine() {
+        return line;
     }
 }
