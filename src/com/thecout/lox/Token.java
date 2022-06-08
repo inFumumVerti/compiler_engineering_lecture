@@ -1,3 +1,5 @@
+package thecout.lox;
+
 public class Token {
 
     public final TokenType type;

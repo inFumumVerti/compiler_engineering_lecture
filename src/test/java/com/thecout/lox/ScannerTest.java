@@ -6,6 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import com.thecout.lox.Scanner;
+import thecout.lox.Token;
+import thecout.lox.TokenType;
+
 
 
 public class ScannerTest {

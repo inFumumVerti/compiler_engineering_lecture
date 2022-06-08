@@ -4,6 +4,8 @@ import com.thecout.lox.Parser.Parser;
 import com.thecout.lox.Parser.Stmts.Stmt;
 import com.thecout.lox.Traversal.AstPrinter;
 import org.junit.jupiter.api.Test;
+import com.thecout.lox.Scanner;
+import com.thecout.lox.Token;
 
 import java.util.List;
 

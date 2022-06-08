@@ -1,4 +1,4 @@
-package com.thecout.lox;
+package thecout.lox;
 
 
 public enum TokenType {
