@@ -1,6 +1,9 @@
 package com.thecout.lox;
 
 
+import thecout.lox.Token;
+import thecout.lox.TokenType;
+
 import java.util.ArrayList;
 import java.util.List;
 

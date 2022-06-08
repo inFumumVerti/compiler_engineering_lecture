@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
+import com.thecout.lox.Scanner;
+import thecout.lox.Token;
+import thecout.lox.TokenType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
