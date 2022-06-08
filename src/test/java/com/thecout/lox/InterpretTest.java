@@ -1,8 +1,6 @@
 package com.thecout.lox;
 
-
-import com.thecout.lox.*;
-import com.thecout.lox.Parser.*;
+import com.thecout.lox.Parser.Parser;
 import com.thecout.lox.Parser.Stmts.Stmt;
 import com.thecout.lox.Traversal.Interpreter;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
