@@ -67,40 +67,39 @@ public class Parser {
     }
 
     private Stmt forStatement() throws ParserError {
-        consume(LEFT_PAREN, "Expected '('");
+        consume(LEFT_PAREN, "Expect '(' after 'for'.");
+        Stmt initializer;
+        if (match(SEMICOLON))
+            initializer = null;
+        else if (match(VAR))
+            initializer = varDeclaration();
+        else
+            initializer = expressionStatement();
+
         Expr condition = null;
-        int idx = current;
+        if (!check(SEMICOLON))
+            condition = expression();
+        consume(SEMICOLON, "Expect ';' after loop condition.");
 
-        // first parameters
-        try{
-            consume(VAR, "Expected 'var'");
-            varDeclaration();
-            idx = current;
-        }catch (Exception e){
-            current = idx;
-            try{
-                expressionStatement();
-                idx = current;
-            }catch (Exception e2){
-                throw error(peek(), "Syntax Error");
-            }
-        }
-        // consume(SEMICOLON, "Expected ';'");
-
-        // second parameters
-        condition = expression();
-        idx = current;
-
-        consume(SEMICOLON, "Expected ';'");
-
-        // third parameters
-        expression();
-
-        consume(RIGHT_PAREN, "Expected ')'");
+        Expr increment = null;
+        if (!check(RIGHT_PAREN))
+            increment = expression();
+        consume(RIGHT_PAREN, "Expect ')' after for clauses.");
 
         Stmt body = statement();
 
-        return new While(condition, body);
+        if (increment != null)
+            body = new Block(List.of(body, new Expression(increment)));
+
+        if (condition == null)
+            condition = new Literal(true);
+
+        body = new While(condition, body);
+
+        if (initializer != null)
+            body = new Block(List.of(initializer, body));
+
+        return body;
     }
 
     private Stmt ifStatement() throws ParserError {
@@ -124,9 +123,12 @@ public class Parser {
     }
 
     private Stmt returnStatement() throws ParserError {
-        Expr expr = expression();
-        consume(SEMICOLON, "Expected ';'");
-        return new Return(expr);
+        Token keyword = previous();
+        Expr value = null;
+        if (!check(SEMICOLON))
+            value = expression();
+        consume(SEMICOLON, "Expect ';' after return value.");
+        return new Return(keyword, value);
     }
 
     private Stmt varDeclaration() throws ParserError {
@@ -139,11 +141,9 @@ public class Parser {
     }
 
     private Stmt whileStatement() throws ParserError {
-        consume(LEFT_PAREN, "Expected '('");
-
+        consume(LEFT_PAREN, "Expect '(' after 'while'.");
         Expr condition = expression();
-
-        consume(RIGHT_PAREN, "Expected ')'");
+        consume(RIGHT_PAREN, "Expect ')' after condition.");
 
         Stmt body = statement();
 
