@@ -27,7 +27,7 @@ public class Parser {
     }
 
     public List<Stmt> parse() {
-        List<Stmt> statements = new ArrayList<>();
+        List<Stmt> statements =- new ArrayList<>();
         while (!isAtEnd()) {
             statements.add(declaration());
         }
@@ -62,7 +62,15 @@ public class Parser {
     }
 
     private Stmt forStatement() {
-
+        consume(LEFT_PAREN, "Expect '(' after 'for'.");
+        Stmt initializer;
+        if (match(SEMICOLON)) {
+            initializer = null;
+        } else if (match(VAR)) {
+            initializer = varDeclaration();
+        } else {
+            initializer = expressionStatement();
+        }
         return null;
     }
 
@@ -81,7 +89,9 @@ public class Parser {
     }
 
     private Stmt printStatement() {
-        return null;
+        Expr value = expression();
+        consume(SEMICOLON, "Expect ';' after value.");
+        return new Stmt.Print(value);
     }
 
     private Stmt returnStatement() {
@@ -89,6 +99,8 @@ public class Parser {
     }
 
     private Stmt varDeclaration() {
+        consume(IDENTIFIER, "Expect variable name.");
+
         return null;
     }
 
